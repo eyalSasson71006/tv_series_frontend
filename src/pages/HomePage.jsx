@@ -1,7 +1,7 @@
-import React from 'react'
+import React from "react";
+import { useCurrentUser } from "../users/providers/UserProvider";
 
 export default function HomePage() {
-  return (
-    <div>HomePage</div>
-  )
+	const { user } = useCurrentUser();
+	return <div>{JSON.stringify(user)}</div>;
 }

@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
-import { googleLoginCallback } from "../users/services/usersApiService";
+import useUsers from "../users/hooks/useUsers";
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 function GoogleLoginButton() {
+	const { handleGoogleLogin } = useUsers();
 	useEffect(() => {
 		window.google.accounts.id.initialize({
 			client_id: GOOGLE_CLIENT_ID,
-			callback: googleLoginCallback,
+			callback: handleGoogleLogin,
 		});
 
 		window.google.accounts.id.renderButton(
