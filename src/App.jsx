@@ -1,11 +1,13 @@
 import React from "react";
-import GoogleLoginButton from "./components/GoogleLoginButton";
-import LoginPage from "./users/pages/LoginPage";
+import Router from "./routes/Router";
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
 	return (
 		<>
-			<LoginPage />
+			<BrowserRouter>
+				<Router />
+			</BrowserRouter>
 		</>
 	);
 }
