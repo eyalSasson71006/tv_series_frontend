@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useCurrentUser } from '../providers/UserProvider';
-import { getUser, setTokenInLocalStorage } from '../services/localStorageService';
+import { getUser, removeToken, setTokenInLocalStorage } from '../services/localStorageService';
 import { googleLoginCallback, login } from '../services/usersApiService';
 import { useNavigate } from 'react-router-dom';
 import ROUTES from '../../routes/routesModel';
@@ -37,5 +37,11 @@ export default function useUsers() {
         }
     }
 
-    return { handleLogin, handleGoogleLogin, isLoading, error };
+    async function handleLogout() {
+        removeToken();
+        setUser(null);
+        setToken(null);
+    }
+
+    return { handleLogin, handleGoogleLogin, handleLogout, isLoading, error };
 }
