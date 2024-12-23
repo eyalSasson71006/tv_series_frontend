@@ -2,15 +2,18 @@ import { Box, Button, Divider, Grid2, Typography } from "@mui/material";
 import React from "react";
 import GoogleLoginButton from "../../components/GoogleLoginButton";
 import LoginForm from "../components/LoginForm";
+import { useNavigate } from "react-router-dom";
+import ROUTES from "../../routes/routesModel";
 
 export default function LoginPage() {
+	const navigate = useNavigate();
 	return (
 		<Grid2
 			container
 			sx={{
 				justifyContent: "center",
-                alignContent: "center",
-                gap:4,
+				alignContent: "center",
+				gap: 4,
 				height: "90vh",
 				textAlign: "center",
 			}}
@@ -32,8 +35,8 @@ export default function LoginPage() {
 				<Grid2 size={{ xs: 8, md: 4 }}>
 					<LoginForm />
 				</Grid2>
-				<Divider orientation="vertical" flexItem sx={{mx:2}} />
-				<Grid2 size={{ xs: 8, md: 4 }} sx={{alignContent:"center"}}>
+				<Divider orientation="vertical" flexItem sx={{ mx: 2 }} />
+				<Grid2 size={{ xs: 8, md: 4 }} sx={{ alignContent: "center" }}>
 					<GoogleLoginButton />
 					<Box
 						sx={{
@@ -41,12 +44,17 @@ export default function LoginPage() {
 							justifyContent: "center",
 							alignItems: "center",
 							mt: 1,
-						}} 
+						}}
 					>
 						<Typography variant="body2">
 							Don't have an account?
 						</Typography>
-						<Button sx={{ color: "#31353D" }}>Sign Up</Button>
+						<Button
+							onClick={() => navigate(ROUTES.REGISTER)} 
+							sx={{ color: "#31353D" }}
+						>
+							Sign Up
+						</Button>
 					</Box>
 				</Grid2>
 			</Grid2>

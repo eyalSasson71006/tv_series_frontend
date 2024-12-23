@@ -14,7 +14,12 @@ export default function NotLogged() {
 			>
 				Login
 			</Button>
-			<Button sx={{ color: "white" }}>register</Button>
+			<Button
+				sx={{ color: "white" }}
+				onClick={() => navigate(ROUTES.REGISTER)}
+			>
+				register
+			</Button>
 		</>
 	);
 }
