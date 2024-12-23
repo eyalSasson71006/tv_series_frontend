@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useCurrentUser } from '../providers/UserProvider';
 import { getUser, removeToken, setTokenInLocalStorage } from '../services/localStorageService';
-import { googleLoginCallback, login, register } from '../services/usersApiService';
+import { getUserByEmail, googleLoginCallback, login, register } from '../services/usersApiService';
 import { useNavigate } from 'react-router-dom';
 import ROUTES from '../../routes/routesModel';
 
 export default function useUsers() {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState();
+    const [currentUser, setCurrentUser] = useState();
     const { setUser, setToken } = useCurrentUser();
     const navigate = useNavigate();
 
@@ -47,11 +48,22 @@ export default function useUsers() {
         }
     }
 
+    async function handleGetUserByEmail(email) {
+        try {
+            let user = await getUserByEmail(email);
+            setCurrentUser(user);
+            return user;
+        } catch (error) {
+            console.log(error);
+            return error.message;
+        }
+    }
+
     async function handleLogout() {
         removeToken();
         setUser(null);
         setToken(null);
     }
 
-    return { handleLogin, handleGoogleLogin, handleLogout, handleRegister, isLoading, error };
+    return { handleLogin, handleGoogleLogin, handleLogout, handleRegister, handleGetUserByEmail, isLoading, error, currentUser };
 }
