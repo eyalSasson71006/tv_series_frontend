@@ -4,6 +4,7 @@ import { getUser, removeToken, setTokenInLocalStorage } from '../services/localS
 import { getUserByEmail, googleLoginCallback, login, register } from '../services/usersApiService';
 import { useNavigate } from 'react-router-dom';
 import ROUTES from '../../routes/routesModel';
+import useAxios from '../../hooks/useAxios';
 
 export default function useUsers() {
     const [isLoading, setIsLoading] = useState(true);
@@ -11,7 +12,8 @@ export default function useUsers() {
     const [currentUser, setCurrentUser] = useState();
     const { setUser, setToken } = useCurrentUser();
     const navigate = useNavigate();
-
+    useAxios();
+    
     async function handleLogin(userData) {
         try {
             const token = await login(userData.email, userData.password);
