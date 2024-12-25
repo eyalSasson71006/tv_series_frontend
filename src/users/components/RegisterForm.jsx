@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	Button,
 	Avatar,
@@ -11,15 +11,14 @@ import useForm from "../../hooks/useForm";
 import initialRegisterForm from "../helpers/initialForms/initialRegisterForm";
 import registerSchema from "../helpers/schemas/registerSchema";
 import useUsers from "../hooks/useUsers";
+import InputFileUpload from "../../components/UploadFileButton";
 
 export default function RegisterForm() {
 	const { handleRegister } = useUsers();
-	const { data, errors, handleChange, validateForm, onSubmit } = useForm(
-		initialRegisterForm,
-		registerSchema,
-		handleRegister
-	);
-    
+	const { data, errors, setData, handleChange, validateForm, onSubmit } =
+		useForm(initialRegisterForm, registerSchema, handleRegister);
+console.log(data.imageUpload);
+
 	return (
 		<FormControl sx={{ display: "flex", alignItems: "center" }}>
 			<Grid2
@@ -72,15 +71,22 @@ export default function RegisterForm() {
 						gap: 2,
 					}}
 				>
-					<Avatar sx={{ width: 60, height: 60 }} />
-					<TextField
-						label="Image url"
-						name="image"
-						value={data.image}
-						error={Boolean(errors.image)}
-						helperText={errors.image}
-						onChange={handleChange}
-						required
+					<Avatar
+						sx={{ width: 60, height: 60 }}
+						src={
+							data.imageUpload
+								? URL.createObjectURL(data.imageUpload)
+								: ""
+						}
+					/>
+					<InputFileUpload
+						title="Upload Image"
+						handleChange={handleChange}
+						value={data.imageUpload}
+						name="imageUpload"
+						removeFile={() =>
+							setData((prev) => ({ ...prev, imageUpload: null }))
+						}
 					/>
 				</Grid2>
 				<Grid2 size={12} mt={1}>

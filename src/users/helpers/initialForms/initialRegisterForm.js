@@ -1,7 +1,7 @@
 const initialRegisterForm = {
     email: "",
     password: "",
-    image: ""
+    imageUpload: null
 };
 
 export default initialRegisterForm;

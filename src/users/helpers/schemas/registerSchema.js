@@ -12,8 +12,7 @@ const registerSchema = {
             message:
                 "The password must be at least seven characters long and contain an uppercase letter, a lowercase letter, a number and one of the following characters !@#$%^&*-",
         }).required(),
-
-    image: Joi.string().uri().required(),
+    imageUpload: Joi.object().allow(null),
 };
 
 export default registerSchema;
