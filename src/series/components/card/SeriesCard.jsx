@@ -6,15 +6,18 @@ import {
 	CardHeader,
 	CardMedia,
 	IconButton,
+	Typography,
 } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import useSeries from "../../hooks/useSeries";
+import { useCurrentUser } from "../../../users/providers/UserProvider";
 
 export default function SeriesCard({ card }) {
 	const navigate = useNavigate();
+	const { user } = useCurrentUser();
 	const { handleLikeSeries } = useSeries();
 	const [isFavorite, setIsFavorite] = useState(card?.is_favorite);
 
@@ -47,18 +50,33 @@ export default function SeriesCard({ card }) {
 						alignItems: "center",
 					}}
 				>
-					<CardHeader
-						sx={{ fontSize: 20 }}
-						title={card.title}
-						subheader={card.genre}
-					/>
-					<IconButton onClick={handleClick}>
-						{isFavorite ? (
-							<FavoriteIcon fontSize="large" color="error" />
-						) : (
-							<FavoriteBorderIcon fontSize="large" />
-						)}
-					</IconButton>
+					<Box>
+						<Typography
+							sx={{
+								fontWeight: "400",
+								fontSize: "1.5rem",
+								display: "-webkit-box",
+								WebkitBoxOrient: "vertical",
+								overflow: "hidden",
+								textOverflow: "ellipsis",
+								WebkitLineClamp: 1,
+							}}
+						>
+							{card.title}
+						</Typography>
+						<Typography>
+							{card.genre}
+						</Typography>
+					</Box>
+					{user && (
+						<IconButton onClick={handleClick}>
+							{isFavorite ? (
+								<FavoriteIcon fontSize="large" color="error" />
+							) : (
+								<FavoriteBorderIcon fontSize="large" />
+							)}
+						</IconButton>
+					)}
 				</Box>
 			</CardContent>
 		</Card>
