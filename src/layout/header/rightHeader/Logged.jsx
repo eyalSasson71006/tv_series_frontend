@@ -27,7 +27,7 @@ export default function Logged() {
 			handleGetUserByEmail(user.email);
 		}
 	}, [user]);
-	
+
 	return (
 		<>
 			<Tooltip title="My Account">
@@ -35,7 +35,10 @@ export default function Logged() {
 					onClick={handleClick}
 					sx={{ p: 0, display: "inline-flex", marginLeft: 2 }}
 				>
-					<Avatar alt="avatar" src={currentUser?.image} />
+					<Avatar
+						alt="avatar"
+						src={"http://localhost:8181/" + currentUser?.image}
+					/>
 				</IconButton>
 			</Tooltip>
 			<Menu anchorEl={anchorEl} open={open} onClose={handleClose}>

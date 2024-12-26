@@ -17,7 +17,6 @@ export default function RegisterForm() {
 	const { handleRegister } = useUsers();
 	const { data, errors, setData, handleChange, validateForm, onSubmit } =
 		useForm(initialRegisterForm, registerSchema, handleRegister);
-console.log(data.imageUpload);
 
 	return (
 		<FormControl sx={{ display: "flex", alignItems: "center" }}>

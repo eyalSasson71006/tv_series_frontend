@@ -41,7 +41,7 @@ export default function useForm(initialState, schema, handleSubmit) {
     function onSubmit() {
         handleSubmit(data);
         if (data.imageUpload) {
-            handleUpload(data.imageUpload);
+            handleUpload(data);
         }
     }
 

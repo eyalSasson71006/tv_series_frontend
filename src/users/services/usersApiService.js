@@ -46,12 +46,13 @@ export const googleLoginCallback = async (response) => {
 
 export const handleUpload = async (data) => {
     try {
-        if (!data) {
+        if (!data.imageUpload) {
             throw new Error("No file selected!");
         }
 
         const formData = new FormData();
-        formData.append("imageUpload", data);
+        formData.append("imageUpload", data.imageUpload);
+        formData.append("email", data.email);
         console.log(formData);
 
         const response = await axios.post(apiUrl + "/image-upload", formData, {
