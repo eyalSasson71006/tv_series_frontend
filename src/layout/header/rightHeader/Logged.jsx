@@ -44,7 +44,7 @@ export default function Logged() {
 			<Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
 				<MenuItem
 					onClick={() => {
-						navigate(ROUTES.USER_PROFILE);
+						navigate(ROUTES.MY_ACCOUNT);
 						handleClose();
 					}}
 				>

@@ -2,7 +2,7 @@ const ROUTES = {
     ROOT: "/",
     LOGIN: "/login",
     REGISTER: "/register",
-    MOVIES: "/series",
+    MY_ACCOUNT: "/my-account",
     MOVIE: "/series/:id",
 };
 

@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { getSeries, likeSeries } from "../services/seriesApiService";
+import { getLikedSeries, getSeries, likeSeries } from "../services/seriesApiService";
 import useAxios from "../../hooks/useAxios";
 
 export default function useSeries() {
     const [series, setSeries] = useState([]);
+    const [likedSeries, setLikedSeries] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState();
 
@@ -13,6 +14,17 @@ export default function useSeries() {
         try {
             let data = await getSeries();
             setSeries(data);
+        } catch (err) {
+            setError(err.message);
+        }
+        setIsLoading(false);
+    };
+
+    const handleGetLikedSeries = async () => {
+        setIsLoading(true);
+        try {
+            let data = await getLikedSeries();
+            setLikedSeries(data);
         } catch (err) {
             setError(err.message);
         }
@@ -29,5 +41,5 @@ export default function useSeries() {
         }
     }
 
-    return { getAllSeries, handleLikeSeries, series, isLoading, error };
+    return { getAllSeries, handleLikeSeries, likedSeries, setLikedSeries, handleGetLikedSeries, series, isLoading, error };
 }
