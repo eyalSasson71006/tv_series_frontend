@@ -5,6 +5,7 @@ import useUsers from "../hooks/useUsers";
 import useSeries from "../../series/hooks/useSeries";
 import SeriesCard from "../../series/components/card/SeriesCard";
 import ScrollBar from "../../components/ScrollBar";
+import photoUrlNormalize from "../../helpers/photoUrlNormalize";
 
 export default function MyAccountPage() {
 	const { user } = useCurrentUser();
@@ -35,7 +36,7 @@ export default function MyAccountPage() {
 				<Avatar
 					sx={{ width: 200, height: 200, fontSize: 100 }}
 					alt="avatar"
-					src={"http://localhost:8181/" + currentUser?.image}
+					src={photoUrlNormalize(currentUser?.image)}
 				/>
 			</Grid2>
 			<Grid2 container size={12} sx={{ ...centerGridSx }}>

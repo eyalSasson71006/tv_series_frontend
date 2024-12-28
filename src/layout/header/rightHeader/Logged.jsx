@@ -7,6 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import ROUTES from "../../../routes/routesModel";
 import useUsers from "../../../users/hooks/useUsers";
 import { useCurrentUser } from "../../../users/providers/UserProvider";
+import photoUrlNormalize from "../../../helpers/photoUrlNormalize";
 
 export default function Logged() {
 	const { user } = useCurrentUser();
@@ -37,7 +38,7 @@ export default function Logged() {
 				>
 					<Avatar
 						alt="avatar"
-						src={"http://localhost:8181/" + currentUser?.image}
+						src={photoUrlNormalize(currentUser?.image)}
 					/>
 				</IconButton>
 			</Tooltip>
