@@ -53,7 +53,6 @@ export const handleUpload = async (data) => {
         const formData = new FormData();
         formData.append("imageUpload", data.imageUpload);
         formData.append("email", data.email);
-        console.log(formData);
 
         const response = await axios.post(apiUrl + "/image-upload", formData, {
             headers: {

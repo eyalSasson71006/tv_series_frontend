@@ -11,7 +11,7 @@ import useForm from "../../hooks/useForm";
 import initialRegisterForm from "../helpers/initialForms/initialRegisterForm";
 import registerSchema from "../helpers/schemas/registerSchema";
 import useUsers from "../hooks/useUsers";
-import InputFileUpload from "../../components/UploadFileButton";
+import ImageUploadComponent from "./ImageUploadComponent";
 
 export default function RegisterForm() {
 	const { handleRegister } = useUsers();
@@ -70,22 +70,10 @@ export default function RegisterForm() {
 						gap: 2,
 					}}
 				>
-					<Avatar
-						sx={{ width: 60, height: 60 }}
-						src={
-							data.imageUpload
-								? URL.createObjectURL(data.imageUpload)
-								: ""
-						}
-					/>
-					<InputFileUpload
-						title="Upload Image"
+					<ImageUploadComponent
+						data={data}
+						setData={setData}
 						handleChange={handleChange}
-						value={data.imageUpload}
-						name="imageUpload"
-						removeFile={() =>
-							setData((prev) => ({ ...prev, imageUpload: null }))
-						}
 					/>
 				</Grid2>
 				<Grid2 size={12} mt={1}>

@@ -1,16 +1,35 @@
-import { Avatar, Box, Divider, Grid2, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import {
+	Avatar,
+	Box,
+	Button,
+	Grid2,
+	IconButton,
+	Typography,
+} from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { useCurrentUser } from "../providers/UserProvider";
 import useUsers from "../hooks/useUsers";
 import useSeries from "../../series/hooks/useSeries";
 import SeriesCard from "../../series/components/card/SeriesCard";
 import ScrollBar from "../../components/ScrollBar";
 import photoUrlNormalize from "../../helpers/photoUrlNormalize";
+import EditIcon from "@mui/icons-material/Edit";
+import { useNavigate } from "react-router-dom";
+import DialogComponent from "../../components/DialogComponent";
+import ImageUploadComponent from "../components/ImageUploadComponent";
+import editImageSchema from "../helpers/schemas/editImageSchema";
+import useForm from "../../hooks/useForm";
 
 export default function MyAccountPage() {
 	const { user } = useCurrentUser();
 	const { currentUser, handleGetUserByEmail } = useUsers();
 	const { likedSeries, handleGetLikedSeries } = useSeries();
+	const [isEdit, setIsEdit] = useState(false);
+	const { data, setData, handleChange, validateForm, onSubmit } = useForm(
+		{ imageUpload: currentUser?.image || null },
+		editImageSchema,
+		() => {setIsEdit(false)}
+	);
 
 	useEffect(() => {
 		if (user) {
@@ -18,7 +37,14 @@ export default function MyAccountPage() {
 			handleGetLikedSeries();
 		}
 	}, [user]);
-
+	
+	useEffect(() => {
+		if (!currentUser) return;
+		setData({
+			imageUpload: currentUser?.image,
+			email: currentUser?.email,
+		});
+	}, [currentUser]);
 	const centerGridSx = {
 		justifyContent: "center",
 		alignItems: "center",
@@ -27,10 +53,37 @@ export default function MyAccountPage() {
 	if (!currentUser || !likedSeries) return <h1>Loading...</h1>;
 	return (
 		<Grid2 container size={12} sx={{ p: 2, ...centerGridSx }}>
+			{isEdit && (
+				<DialogComponent
+					isOpen={isEdit}
+					setIsOpen={setIsEdit}
+					title={"Edit Profile Picture"}
+					sx={{
+						display: "flex",
+						flexDirection: "column",
+						alignItems: "center",
+						justifyContent: "center",
+						gap: 2,
+					}}
+				>
+					<ImageUploadComponent
+						data={data}
+						setData={setData}
+						handleChange={handleChange}
+					/>
+					<Button disabled={!validateForm()} onClick={onSubmit}>
+						Save
+					</Button>
+				</DialogComponent>
+			)}
 			<Grid2
 				container
 				size={12}
-				sx={{ ...centerGridSx, flexDirection: "column" }}
+				sx={{
+					...centerGridSx,
+					flexDirection: "column",
+					position: "relative",
+				}}
 			>
 				<Typography variant="h2">My Account</Typography>
 				<Avatar
@@ -38,6 +91,12 @@ export default function MyAccountPage() {
 					alt="avatar"
 					src={photoUrlNormalize(currentUser?.image)}
 				/>
+				<IconButton
+					sx={{ position: "absolute", top: 0, left: 0 }}
+					onClick={() => setIsEdit(true)}
+				>
+					<EditIcon sx={{ color: "white" }} fontSize="large" />
+				</IconButton>
 			</Grid2>
 			<Grid2 container size={12} sx={{ ...centerGridSx }}>
 				<Grid2 size={1.5}>
