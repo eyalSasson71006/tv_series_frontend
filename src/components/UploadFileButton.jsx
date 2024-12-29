@@ -24,7 +24,7 @@ export default function InputFileUpload({
 	removeFile,
 }) {
 	return (
-		<Box>
+		<Box sx={{ display: "grid", alignItems: "center", gap: 1 }}>
 			<Button
 				component="label"
 				role={undefined}

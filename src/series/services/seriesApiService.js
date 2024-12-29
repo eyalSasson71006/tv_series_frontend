@@ -12,6 +12,15 @@ export async function getLikedSeries() {
     return response.data;
 }
 
+export const getSeriesById = async (seriesId) => {
+    try {
+        const response = await axios.get(`${apiUrl}/${seriesId}`);        
+        return response.data;
+    } catch (err) {
+        throw new Error(err.message);
+    }
+};
+
 export const likeSeries = async (seriesId) => {
     try {
         const response = await axios.put(`${apiUrl}/like/${seriesId}`);

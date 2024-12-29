@@ -4,13 +4,11 @@ import InputFileUpload from "../../components/UploadFileButton";
 import photoUrlNormalize from "../../helpers/photoUrlNormalize";
 
 export default function ImageUploadComponent({ data, setData, handleChange }) {
-	
 	function handleSrc(image) {
 		if (!image) return null;
-		const regex = /^public/;
-		if (regex.test(image)) {
+		if (typeof image == "string") {
 			return photoUrlNormalize(image);
-		} else {
+		} else if (typeof image == "object") {
 			return URL.createObjectURL(image);
 		}
 	}

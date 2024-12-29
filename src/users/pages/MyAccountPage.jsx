@@ -28,7 +28,9 @@ export default function MyAccountPage() {
 	const { data, setData, handleChange, validateForm, onSubmit } = useForm(
 		{ imageUpload: currentUser?.image || null },
 		editImageSchema,
-		() => {setIsEdit(false)}
+		() => {
+			setIsEdit(false);
+		}
 	);
 
 	useEffect(() => {
@@ -37,7 +39,7 @@ export default function MyAccountPage() {
 			handleGetLikedSeries();
 		}
 	}, [user]);
-	
+
 	useEffect(() => {
 		if (!currentUser) return;
 		setData({
@@ -98,22 +100,24 @@ export default function MyAccountPage() {
 					<EditIcon sx={{ color: "white" }} fontSize="large" />
 				</IconButton>
 			</Grid2>
-			<Grid2 container size={12} sx={{ ...centerGridSx }}>
-				<Grid2 size={1.5}>
-					<Typography align="center" variant="h5">
-						My Favorites:
-					</Typography>
+			{likedSeries.length > 0 && (
+				<Grid2 container size={12} sx={{ ...centerGridSx }}>
+					<Grid2 size={1.5}>
+						<Typography align="center" variant="h5">
+							My Favorites:
+						</Typography>
+					</Grid2>
+					<Grid2 size={10}>
+						<ScrollBar>
+							{likedSeries.map((series) => (
+								<Box key={series.id}>
+									<SeriesCard card={series} />
+								</Box>
+							))}
+						</ScrollBar>
+					</Grid2>
 				</Grid2>
-				<Grid2 size={10}>
-					<ScrollBar>
-						{likedSeries.map((series) => (
-							<Box key={series.id}>
-								<SeriesCard card={series} />
-							</Box>
-						))}
-					</ScrollBar>
-				</Grid2>
-			</Grid2>
+			)}
 		</Grid2>
 	);
 }

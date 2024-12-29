@@ -14,6 +14,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import useSeries from "../../hooks/useSeries";
 import { useCurrentUser } from "../../../users/providers/UserProvider";
+import ROUTES from "../../../routes/routesModel";
 
 export default function SeriesCard({ card }) {
 	const navigate = useNavigate();
@@ -36,7 +37,9 @@ export default function SeriesCard({ card }) {
 			}}
 		>
 			<CardContent>
-				<CardActionArea>
+				<CardActionArea
+					onClick={() => navigate(`${ROUTES.SERIES}/${card.id}`)}
+				>
 					<CardMedia
 						sx={{ height: 375 }}
 						image={card.image}
@@ -64,9 +67,7 @@ export default function SeriesCard({ card }) {
 						>
 							{card.title}
 						</Typography>
-						<Typography>
-							{card.genre}
-						</Typography>
+						<Typography>{card.genre}</Typography>
 					</Box>
 					{user && (
 						<IconButton onClick={handleClick}>
