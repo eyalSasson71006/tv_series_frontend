@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import useSeries from "../hooks/useSeries";
 import { Grid2, Typography } from "@mui/material";
+import Spinner from "../../components/Spinner";
 
 export default function SeriesPreviewPage() {
 	const { id } = useParams();
@@ -11,8 +12,7 @@ export default function SeriesPreviewPage() {
 		handleGetSeriesById(id);
 	}, [id]);
 
-	console.log(seriesPreview);
-	if (!seriesPreview) return <h1>Loading...</h1>;
+	if (!seriesPreview) return <Spinner />;
 	return (
 		<Grid2
 			container

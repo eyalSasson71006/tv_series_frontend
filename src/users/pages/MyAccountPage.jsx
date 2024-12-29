@@ -19,6 +19,7 @@ import DialogComponent from "../../components/DialogComponent";
 import ImageUploadComponent from "../components/ImageUploadComponent";
 import editImageSchema from "../helpers/schemas/editImageSchema";
 import useForm from "../../hooks/useForm";
+import Spinner from "../../components/Spinner";
 
 export default function MyAccountPage() {
 	const { user } = useCurrentUser();
@@ -52,7 +53,7 @@ export default function MyAccountPage() {
 		alignItems: "center",
 		gap: 2,
 	};
-	if (!currentUser || !likedSeries) return <h1>Loading...</h1>;
+	if (!currentUser || !likedSeries) return <Spinner />;
 	return (
 		<Grid2 container size={12} sx={{ p: 2, ...centerGridSx }}>
 			{isEdit && (
